@@ -1,0 +1,40 @@
+<script>
+    async function showAvatar() {
+        // userName o'zgaruvchisining qiymatini userName input'idan olamiz:
+        let userName = document.getElementById("userName").value;
+
+        // githubUrl o'zgaruvchisiga qiymat beramiz:
+        let githubUrl = `https://api.github.com/users/${userName}`;
+
+        // fetch yordamida api.github.com ga so'rov jo'natib, natijani olamiz:
+        let githubResponse = await fetch(githubUrl);
+
+        // github'dan kelgan javobni json'ga o'girib, uni o'zgaruvchiga olamiz:
+        let githubUser = await githubResponse.json();
+
+        // userData div'ini tozalab tashlaymiz
+        document.getElementById("userData").innerHTML = "";
+
+        // yangi img elmenetini yaratamiz
+        let img = document.createElement('img');
+
+        // img elementining src xossasiga githubUser obyektining 
+        // avatar_url xossasini qiyatini beramiz
+        img.src = githubUser.avatar_url;
+
+        // img elementini userData div'i ichiga qo'shib qo'yamiz:
+        document.getElementById('userData').append(img);
+        document.getElementById('url').innerHTML = githubUrl;
+    }
+</script>
+<html>
+Github foydalanuvchisi nomini:
+<input type="text" id="userName" />
+<button onclick="showAvatar()">Avatarni ko'rsat</button>
+<p></p>
+<div id="userData">
+
+</div>
+<p id="url"></p>
+
+</html>
